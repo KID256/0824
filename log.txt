@@ -1,0 +1,12 @@
+---
+rename
+---
+almost finish：
+	kernel/			OK
+	system/			OK
+	Application/ 	OK
+---
+
+/* compiler system layer  */
+gcc -o user_program user_program.c camera_module.c -ljpeg
+---

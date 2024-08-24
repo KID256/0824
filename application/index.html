@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Captured Image</title>
+</head>
+<body>
+  <h1>Captured Image</h1>
+  <img id="capturedImage" src="" alt="Captured Image">
+
+  <script>
+    const capturedImage = document.getElementById('capturedImage');
+
+    function fetchImage() {
+      fetch('/get-image')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.blob(); // 將響應轉換為Blob
+        })
+        .then(imageBlob => {
+          const imageObjectURL = URL.createObjectURL(imageBlob);
+          capturedImage.src = imageObjectURL; // 將Blob URL設置為img的src
+        })
+        .catch(error => {
+          console.error('Error fetching image:', error);
+        });
+    }
+
+    // 每5秒自動刷新一次
+    setInterval(fetchImage, 500);
+
+    // 初次加載時獲取圖片
+    fetchImage();
+  </script>
+</body>
+</html>
